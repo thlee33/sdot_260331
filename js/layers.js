@@ -4,12 +4,12 @@
 
 // ===== 브이월드 타일 =====
 const BASEMAP_TILES = {
-  normal:    'http://xdworld.vworld.kr:8080/2d/Base/service/{z}/{x}/{y}.png',
-  satellite: 'http://xdworld.vworld.kr:8080/2d/Satellite/service/{z}/{x}/{y}.jpeg',
-  night:     'http://xdworld.vworld.kr:8080/2d/midnight/service/{z}/{x}/{y}.png',
-  white:     'http://xdworld.vworld.kr:8080/2d/white/service/{z}/{x}/{y}.png'
+  normal:    'https://xdworld.vworld.kr/2d/Base/service/{z}/{x}/{y}.png',
+  satellite: 'https://xdworld.vworld.kr/2d/Satellite/service/{z}/{x}/{y}.jpeg',
+  night:     'https://xdworld.vworld.kr/2d/midnight/service/{z}/{x}/{y}.png',
+  white:     'https://xdworld.vworld.kr/2d/white/service/{z}/{x}/{y}.png'
 };
-const HYBRID_URL = 'http://xdworld.vworld.kr:8080/2d/Hybrid/service/{z}/{x}/{y}.png';
+const HYBRID_URL = 'https://xdworld.vworld.kr/2d/Hybrid/service/{z}/{x}/{y}.png';
 
 // ===== 컬러 스케일 =====
 // 센서 포인트: YlOrRd (온도), Reds (소음·NO₂), Purples (UV)
