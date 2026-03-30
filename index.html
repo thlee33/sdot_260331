@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>서울 도시환경 분석</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <script src="https://unpkg.com/chroma-js@2.4.2/chroma.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header id="app-header">
+  <div class="header-title">
+    <span>서울 도시환경 분석</span>
+    <span class="title-sub">S-DoT 2025.08 기준</span>
+  </div>
+</header>
+
+<div id="app-body">
+
+  <!-- 좌측 레이어 패널 -->
+  <aside id="layer-panel">
+
+    <!-- 기온 -->
+    <div class="panel-section">
+      <div class="panel-section-title">기온</div>
+      <div class="layer-row">
+        <label><input type="checkbox" id="layer-sensor-temp"><span>센서-온도</span></label>
+      </div>
+      <div class="layer-row">
+        <label>
+          <input type="checkbox" id="layer-heat-sdot">
+          <span>온도 분포</span>
+          <button class="info-btn" data-info="heatSdot" title="데이터 정보">ℹ</button>
+        </label>
+        <input type="range" class="opacity-slider" id="opacity-heat-sdot" min="0" max="100" value="75">
+      </div>
+    </div>
+
+    <div class="panel-divider"></div>
+
+    <!-- 소음 -->
+    <div class="panel-section">
+      <div class="panel-section-title">소음</div>
+      <div class="layer-row">
+        <label><input type="checkbox" id="layer-sensor-noise"><span>센서-소음</span></label>
+      </div>
+      <div class="layer-row">
+        <label>
+          <input type="checkbox" id="layer-noise">
+          <span>소음 분포</span>
+          <button class="info-btn" data-info="noise" title="데이터 정보">ℹ</button>
+        </label>
+        <input type="range" class="opacity-slider" id="opacity-noise" min="0" max="100" value="70">
+      </div>
+    </div>
+
+    <div class="panel-divider"></div>
+
+    <!-- 자외선 -->
+    <div class="panel-section">
+      <div class="panel-section-title">자외선</div>
+      <div class="layer-row">
+        <label><input type="checkbox" id="layer-sensor-uv"><span>센서-UV</span></label>
+      </div>
+      <div class="layer-row">
+        <label>
+          <input type="checkbox" id="layer-uv">
+          <span>UV 분포</span>
+          <button class="info-btn" data-info="uv" title="데이터 정보">ℹ</button>
+        </label>
+        <input type="range" class="opacity-slider" id="opacity-uv" min="0" max="100" value="70">
+      </div>
+    </div>
+
+    <div class="panel-divider"></div>
+
+    <!-- 대기오염 -->
+    <div class="panel-section">
+      <div class="panel-section-title">대기오염</div>
+      <div class="layer-row">
+        <label><input type="checkbox" id="layer-sensor-air"><span>센서-NO₂</span></label>
+      </div>
+      <div class="layer-row">
+        <label>
+          <input type="checkbox" id="layer-air">
+          <span>NO₂ 분포</span>
+          <button class="info-btn" data-info="air" title="데이터 정보">ℹ</button>
+        </label>
+        <input type="range" class="opacity-slider" id="opacity-air" min="0" max="100" value="70">
+      </div>
+    </div>
+
+    <div class="panel-divider"></div>
+
+    <!-- 생활인구 -->
+    <div class="panel-section">
+      <div class="panel-section-title">생활인구</div>
+      <div class="layer-row">
+        <label>
+          <input type="checkbox" id="layer-population">
+          <span>250m 격자</span>
+          <button class="info-btn" data-info="population" title="데이터 정보">ℹ</button>
+        </label>
+        <input type="range" class="opacity-slider" id="opacity-population" min="0" max="100" value="65">
+      </div>
+    </div>
+
+    <!-- 범례 (레이어 패널 하단) -->
+    <div id="legend-bar"></div>
+
+  </aside>
+
+  <!-- 지도 -->
+  <div id="map-container">
+    <div id="map"></div>
+
+    <!-- 우상단 컨트롤 -->
+    <div id="map-controls-top">
+      <label class="map-ctrl-btn" title="지명 표시">
+        <input type="checkbox" id="layer-hybrid"> 지명
+      </label>
+    </div>
+
+    <!-- 배경지도 (우하단) -->
+    <div id="basemap-panel">
+      <div class="basemap-title">배경지도</div>
+      <label class="radio-item"><input type="radio" name="basemap" value="normal" checked> 일반</label>
+      <label class="radio-item"><input type="radio" name="basemap" value="satellite"> 영상</label>
+      <label class="radio-item"><input type="radio" name="basemap" value="night"> 야간</label>
+      <label class="radio-item"><input type="radio" name="basemap" value="white"> 화이트</label>
+    </div>
+
+  </div>
+
+  <!-- 우측 사이드바 -->
+  <div id="right-panel">
+    <div id="info-panel">
+      <div id="info-placeholder">
+        <div class="info-placeholder-icon">📍</div>
+        <p>지도에서 센서 또는 구간을<br>클릭하면 분석 결과를 보여줍니다</p>
+      </div>
+      <div id="info-content" class="hidden"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/layers.js"></script>
+<script src="js/info-panel.js"></script>
+<script src="js/ml-overlay.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>
