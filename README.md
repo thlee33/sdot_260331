@@ -38,7 +38,7 @@
 
 - **지도**: [Leaflet.js](https://leafletjs.com/) 1.9.4
 - **색상**: [chroma.js](https://gka.github.io/chroma.js/) 2.4.2
-- **배경지도**: 브이월드 XYZ 타일 (국토정보플랫폼)
+- **배경지도**: 브이월드 
 - 별도 서버·빌드 도구 없음 — 순수 HTML/CSS/JS
 
 ## 로컬 실행
@@ -70,8 +70,7 @@ npx serve .
 ├── js/
 │   ├── layers.js        # 레이어 생성 함수 (색상·범례 포함)
 │   ├── main.js          # 지도 초기화, 레이어 토글
-│   ├── info-panel.js    # 클릭 시 상세 정보 패널
-│   └── ml-overlay.js    # ML 예측 오버레이 (확장용)
+│   └── info-panel.js    # 클릭 시 상세 정보 패널
 └── data/
     ├── sdot_august_avg.geojson    # S-DoT 센서 위치 + 8월 평균값
     ├── heat_island.geojson        # 온도 보간 폴리곤
